@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+
+char board[3][3];
+
+char intro();
+void setup();
+
+int main()
+{
+  cout << "A game of Tic Tac Toe" << endl;
+  intro();
+  char player = one;
+  int = i, choice;
+  char xo;
+  do
+    {
+      setup();
+      player=(player%2)?1:2;
+      cout << "Choosing values: LetterNumber (ex. A1, B2, C3)" << endl;
+      cout << one << "Enter a letter-number combination: " << endl;
+      cin > choice;
+  
+}
+
+char intro()
+{
+  char one[12];
+  char two[12];
+  cout << "Enter name, Player 1!" << endl;
+  cin.get(one, 12);
+  cin.get();
+  cout << "Welcome, " << one << "!" << endl;
+
+  cout << "Enter name, Player 2!" << endl;
+  cin.get(two, 12);
+  cin.get();
+  cout << "A worthy opponent, " << two << "!" << endl;
+  return 0;
+}
+
+void setup()
+{
+  cout << " " << "1" << "2" << "3" << endl;
+  cout << "A" << board[0][0] << board[0][1] << board[0][2] << endl;
+  cout << "B" << board[1][0] << board[1][1] << board[1][2] << endl;
+  cout << "C" << board[2][0] << board[2][1] << board[2][2] << endl;
+}
+
+
+
+
