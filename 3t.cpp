@@ -4,20 +4,20 @@ using namespace std;
 char one[12];
 char two[12];
 char board[3][3];
-int row, column;
+int (a*)[3] = &board[0];
 
 char intro();
 void table();
+int row(a*);
 
 int main()
 {
   cout << "A game of Tic Tac Toe" << endl;
   intro();
     cout << "You're up first, " << one << ". You are X." << endl;
-    cout << "Enter a row: ";
-    cin >> row;
+    cout << one << ", enter a row: ";
+    row(c*);
     cout << endl << "Enter a column: ";
-    cin >> column;
     table();
 }
 
@@ -44,6 +44,13 @@ void table()
   cout << "C" << board[2][0] << board[2][1] << board[2][2] << endl;
 }
 
-
-
-
+int row(a*)//row1
+{
+  cin >> row;
+  if(i = 0; i < 3; ++i)
+    {
+      c* = row - 1;
+    }  
+      
+  
+  
