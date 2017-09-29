@@ -4,20 +4,24 @@ using namespace std;
 char one[12];
 char two[12];
 char board[3][3];
-int (a*)[3] = &board[0];
 
 char intro();
 void table();
-int row(a*);
+int coordx();
+int coordy();
 
 int main()
-{
+{  
   cout << "A game of Tic Tac Toe" << endl;
   intro();
-    cout << "You're up first, " << one << ". You are X." << endl;
+  cout << "You're up first, " << one << "." << endl;
+    cout << one << "'s turn." << endl;
     cout << one << ", enter a row: ";
-    row(c*);
-    cout << endl << "Enter a column: ";
+    coordx();
+    table();
+    cout << two << "'s turn." << endl;
+    cout << two << ", enter a row: ";
+    coordy();
     table();
 }
 
@@ -44,13 +48,59 @@ void table()
   cout << "C" << board[2][0] << board[2][1] << board[2][2] << endl;
 }
 
-int row(a*)//row1
+int coordx()
 {
-  cin >> row;
-  if(i = 0; i < 3; ++i)
-    {
-      c* = row - 1;
-    }  
+  int j;
+  char i;
+  cin >> i;
+      if(i == 'A' || i == 'a')
+	{
+	  cout << endl << "Enter column: ";
+	  cin >> j;
+	  board[0][j-1] = 'X';
+	}
+  
+      else if(i == 'B' || i == 'b')
+	{
+	  cout << endl << "Enter column: ";
+	  cin >> j;
+	  board[1][j-1] = 'X';
+	}
+      else if(i == 'C' || i == 'c')
+	{
+	  cout << endl << "Enter column: ";
+	  cin >> j;
+	  board[2][j-1] = 'X';
+	}
+  return 0; 
+}
+  
       
   
   
+int coordy()
+{
+  int j;
+  char i;
+  cin >> i;
+  if(i == 'A' || i == 'a')
+    {
+      cout << endl << "Enter column: ";
+      cin >> j;
+      board[0][j-1] = 'O';
+    }
+
+  else if(i == 'B' || i == 'b')
+    {
+      cout << endl << "Enter column: ";
+      cin >> j;
+      board[1][j-1] = 'O';
+    }
+  else if(i == 'C' || i == 'c')
+    {
+      cout << endl << "Enter column: ";
+      cin >> j;
+      board[2][j-1] = 'O';
+    }
+  return 0;
+}
