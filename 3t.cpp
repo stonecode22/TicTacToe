@@ -1,32 +1,44 @@
+//By Stone Yang
+/*A program created to have two players play Tic Tac Toe*/
 #include <iostream>
 using namespace std;
 
 char one[12];
 char two[12];
 char board[3][3];
+int xwin = 0;
+int owin = 0;
 
+//list of functions to call
 char intro();
 void table();
-int coordx();
-int coordy();
+int turnA();
+int turnB();
+int win();
 
 int main()
-{  
+{
+  char markx = 'X';
+  char marko = 'O';
   cout << "A game of Tic Tac Toe" << endl;
   intro();
   cout << "You're up first, " << one << "." << endl;
+  do{
     cout << one << "'s turn." << endl;
-    cout << one << ", enter a row: ";
-    coordx();
+    cout << one << ", enter a row (A, B, C): ";
+    turnA();
     table();
+    win();
     cout << two << "'s turn." << endl;
     cout << two << ", enter a row: ";
-    coordy();
+    turnB();
     table();
+    win();
+  }while(win == 0);
 }
 
   
-char intro()
+char intro() //getting player names
 {
   cout << "Enter name, Player 1!" << endl;
   cin.get(one, 12);
@@ -40,7 +52,7 @@ char intro()
   return 0;
 }
 
-void table()
+void table() //the game board
 {
   cout << " " << "1" << "2" << "3" << endl;
   cout << "A" << board[0][0] << board[0][1] << board[0][2] << endl;
@@ -48,59 +60,196 @@ void table()
   cout << "C" << board[2][0] << board[2][1] << board[2][2] << endl;
 }
 
-int coordx()
+int turnA() //turn of player 1
 {
   int j;
   char i;
-  cin >> i;
+  cin >> i; //prompt for row, loops into prompt for column
+  do{
       if(i == 'A' || i == 'a')
 	{
-	  cout << endl << "Enter column: ";
-	  cin >> j;
-	  board[0][j-1] = 'X';
+	  do
+	    {
+	      cout << endl << "Enter column: ";
+	      cin >> j;
+	      if(j <= 3)
+		{
+		  board[0][j-1] = markx;
+		  return 0;
+		}
+	      else
+		{
+		  cout << "Invalid move: Column doesn't exist" << endl;
+		  cout << "Re-enter row: ";
+		  return turnA();
+		}
+	    }while(j > 3);
 	}
   
       else if(i == 'B' || i == 'b')
 	{
-	  cout << endl << "Enter column: ";
-	  cin >> j;
-	  board[1][j-1] = 'X';
+	  do
+	    {
+	      cout << endl << "Enter column: ";
+	      cin >> j;
+	      if(j <= 3)
+		{
+		  board[2][j-1] = markx;
+		  return 0;
+		}
+	      else
+		{
+		  cout << "Invalid move: Column doesn't exist" << endl;
+		  cout << "Re-enter row: ";
+		  return turnA();
+		}
+	    }while(j > 3);
 	}
       else if(i == 'C' || i == 'c')
 	{
-	  cout << endl << "Enter column: ";
-	  cin >> j;
-	  board[2][j-1] = 'X';
+	  do
+	    {
+	      cout << endl << "Enter column: ";
+	      cin >> j;
+	      if(j <= 3)
+		{
+		  board[2][j-1] = markx;
+		  return 0;
+		}
+	      else
+		{
+		  cout << "Invalid move: Column doesn't exist" << endl;
+		  cout << "Re-enter row: ";
+		  return turnA();
+		}
+	    }while(j > 3);
 	}
-  return 0; 
+      else
+	{
+	  cout << "Invalid move: Row doesn't exist." << endl;
+	  cout << "Re-enter Row: ";
+	  return turnA();
+	}
+  }while(i != 'A', 'B', 'C');
 }
   
       
   
   
-int coordy()
+int turnB() //turn of player 2
 {
   int j;
   char i;
-  cin >> i;
-  if(i == 'A' || i == 'a')
-    {
-      cout << endl << "Enter column: ";
-      cin >> j;
-      board[0][j-1] = 'O';
-    }
+  cin >> i; //prompts for row, loops into prompt for column
+  do{
+    if(i == 'A' || i == 'a')
+      {
+	do
+	  {
+	    cout << endl << "Enter column: ";
+	    cin >> j;
+	    if(j <= 3)
+	      {
+		board[0][j-1] = marko;
+		return 0;
+	      }
+	    else
+	      {
+		cout << "Invalid move: Column doesn't exist" << endl;
+		cout << "Re-enter row: ";
+		return turnB();
+	      }
+	  }while(j > 3);
+      }
+    
+    else if(i == 'B' || i == 'b')
+      {
+	do
+	  {
+	    cout << endl << "Enter column: ";
+	    cin >> j;
+	    if(j <= 3)
+	      {
+		board[1][j-1] = marko;
+		return 0;
+	      }
+	    else
+	      {
+		cout << "Invalid move: Column doesn't exist" << endl;
+		cout << "Re-enter row: ";
+		return turnB();
+	      }
+	  }while(j > 3);
+      }
+    else if(i == 'C' || i == 'c')
+      {
+	do
+	  {
+	    cout << endl << "Enter column: ";
+	    cin >> j;
+	    if(j <= 3)
+	      {
+		board[2][j-1] = marko;
+		return 0;
+	      }
+	    else
+	      {
+		cout << "Invalid move: Column doesn't exist" << endl;
+		cout << "Re-enter row: ";
+		return turnB();
+	      }
+	  }while(j > 3);
+      }
+    else
+      {
+	cout << "Invalid move: Row doesn't exist." << endl;
+	cout << "Re-enter row: ";
+	return turnB();
+      }
+  }while(i != 'A', 'B', 'C');
+}
 
-  else if(i == 'B' || i == 'b')
+int win() //win conditions
+{
+  char markx = 'X'
+  if(board[0][0] == markx && board[0][1] == markx && board[0][2] == markx)
     {
-      cout << endl << "Enter column: ";
-      cin >> j;
-      board[1][j-1] = 'O';
+      xwin++;
+      cout << one << "has won this round!" << endl;
+      cout << one << " " << xwin << " - " << two << " " << owin << endl;
     }
-  else if(i == 'C' || i == 'c')
+  else if(board[1][0] = markx && board [1][1] = markx && board [1][2] = markx)
     {
-      cout << endl << "Enter column: ";
-      cin >> j;
-      board[2][j-1] = 'O';
+      xwin++;
+      cout << one << "has won this round!" << endl;
+      cout << one << " " << xwin << " - " << two << " " << owin << endl;
     }
-  return 0;
+  else if(board[2][0] = markx && board [2][1] = markx && board [2][2] = markx)
+    {
+      xwin++;
+      cout << one << "has won this round!" << endl;
+      cout << one << " " << xwin << " - " << two << " " << owin << endl;
+    }
+  else if(board[0][0] = markx && board [1][0] = markx && board [2][0] = markx)
+    {
+      xwin++;
+      cout << one << "has won this round!" << endl;
+      cout << one << " " << xwin << " - " << two << " " << owin << endl;
+    }
+  else if(board[0][1] = markx && board [1][1] = markx && board [2][1] = markx)
+    {
+      xwin++;
+      cout << one << "has won this round!" << endl;
+      cout << one << " " << xwin << " - " << two << " " << owin << endl;
+    }
+  else if(board[0][2] = markx && board [1][2] = markx && board [2][2] = markx)
+    {
+      xwin++;
+      cout << one << "has won this round!" << endl;
+      cout << one << " " << xwin << " - " << two << " " << owin << endl;
+    }
+  else
+    {
+      return 0;
+    }
 }
