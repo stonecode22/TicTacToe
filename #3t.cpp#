@@ -277,7 +277,7 @@ int win_x() //win conditions for player 1
     }
 }
 
-int win_y() //win conditions for player 2
+int win_() //win conditions for player 2
 {
   int a;
   if(marko == board[0][0] && marko == board[0][1] && marko == board[0][2])
