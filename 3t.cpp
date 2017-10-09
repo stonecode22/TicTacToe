@@ -10,34 +10,43 @@ char markx = 'X';
 char marko = 'O';
 int xwin = 0;
 int owin = 0;
+char plagain;
 
 //list of functions to call
 char intro();
 void table();
 int turnA();
 int turnB();
-int win_x();
-int win_o();
+bool wincond();
+bool wincond2();
 
 int main()
 {
-  int a = 0;
   cout << "A game of Tic Tac Toe" << endl;
   intro();
   cout << "You're up first, " << one << "." << endl;
   do{
+    table();
     cout << one << "'s turn." << endl;
     cout << one << ", enter a row (A, B, C): ";
     turnA();
     table();
-    win_x();
+    wincond();
+    if(wincond() == true)
+      {
+	break;
+      }
     cout << two << "'s turn." << endl;
     cout << two << ", enter a row: ";
     turnB();
     table();
-    win_o();
-    cout << a << endl;
-  }while(a == 0);
+    wincond2();
+    if(wincond2() == true)
+      {
+	break;
+      }
+  }while(wincond() == false && wincond2() == false);
+    
 }
 
   
@@ -212,134 +221,126 @@ int turnB() //turn of player 2
   }while(i != 'A', 'a', 'B', 'b', 'C', 'c');
 }
 
-int win_x() //win conditions for player 1
+bool wincond() //win conditions for player 1
 {
-  int a;
   if(markx == board[0][0] && markx == board[0][1] && markx == board[0][2])
     {
       xwin++;
       cout << one << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      board[3][3] = '0';
+      return true;
     }
   else if(board[1][0] == markx && board[1][1] == markx && board[1][2] == markx)
     {
       xwin++;
       cout << one << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else if(board[2][0] == markx && board[2][1] == markx && board[2][2] == markx)
     {
       xwin++;
       cout << one << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else if(board[0][0] == markx && board[1][0] == markx && board[2][0] == markx)
     {
       xwin++;
       cout << one << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else if(board[0][1] == markx && board[1][1] == markx && board[2][1] == markx)
     {
       xwin++;
       cout << one << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else if(board[0][2] == markx && board[1][2] == markx && board[2][2] == markx)
     {
       xwin++;
       cout << one << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else if(board[0][0] == markx && board[1][1] == markx && board[2][2] == markx)
     {
       xwin++;
       cout << one << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else
     {
-      return 0;
+      return false;
     }
 }
 
-int win_y() //win conditions for player 2
+bool wincond2()
 {
-  int a;
-  if(marko == board[0][0] && marko == board[0][1] && marko == board[0][2])
+   if(marko == board[0][0] && marko == board[0][1] && marko == board[0][2])
     {
       owin++;
       cout << two << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else if(board[1][0] == marko && board[1][1] == marko && board[1][2] == marko)
     {
       owin++;
       cout << two << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else if(board[2][0] == marko && board[2][1] == marko && board[2][2] == marko)
     {
       owin++;
       cout << two << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else if(board[0][0] == marko && board[1][0] == marko && board[2][0] == marko)
     {
       owin++;
       cout << two << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else if(board[0][1] == marko && board[1][1] == marko && board[2][1] == marko)
     {
       owin++;
       cout << two << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else if(board[0][2] == marko && board[1][2] == marko && board[2][2] == marko)
     {
       owin++;
       cout << two << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else if(board[0][0] == marko && board[1][1] == marko && board[2][2] == marko)
     {
       owin++;
       cout << two << " has won this round!" << endl;
       cout << one << " " << xwin << " - " << two << " " << owin << endl;
-      a = 1;
-      return a;
+      return true;
     }
   else
     {
-      return 0;
+      return false;
     }
 }
+
+/*int tie()
+{
+  if (board[3][3] == marko || board [3][3] == markx)
+    {
+      cout << "The game is tied! No one wins." << endl;
+*/      
 
 
