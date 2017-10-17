@@ -10,7 +10,10 @@ char markx = 'X';
 char marko = 'O';
 int xwin = 0;
 int owin = 0;
+int cycx = 0;
+int cyco = 0;
 char plagain;
+
 
 //list of functions to call
 char intro();
@@ -28,31 +31,54 @@ int main()
    cout << "You're up first, " << one << "." << endl;
    do{
      boardclr();
-      do
-	{
-	  cout << one << "'s turn." << endl;
-	  cout << one << ", enter a row (A, B, C): ";
-	  turnA();
-	  table();
-	  wincond();
-	  if(wincond() == true)
-	    {
-	      break;
-	    } 
-	  cout << two << "'s turn." << endl;
-	  cout << two << ", enter a row: ";
-	  turnB();
-	  table();
-	  wincond2();
-	  if(wincond2() == true)
-	    {
-	      break;
-	      }
-	}while (wincond() == false && wincond2() == false);
-      cout << "Do you wish to play again?(Y/N)";
-      cin >> plagain;
+     if(cycx + cyco == 9 && wincond() == false && wincond2() == false)
+       {
+	 cout << "Tie game, no one wins" << endl;
+	 break;
+       }
+     else
+       {
+	 do
+	   {
+	     if(cycx < 5 && wincond() == false)
+	       {
+		 cout << one << "'s turn." << endl;
+		 cout << one << ", enter a row (A, B, C): ";
+		 turnA();
+		 cycx++;
+		 table();
+		 wincond();
+	       }
+	     else if(wincond() == true)
+	       {
+		 xwin++;
+		 cout << two << " has won this round!" << endl;
+		 cout << one << " " << xwin << " - " << two << " " << owin << endl;
+		 break;
+	       }
+
+	     if(cyco < 4 && wincond2() == false)
+	       {
+		 cout << two << "'s turn." << endl;
+		 cout << two << ", enter a row: ";
+		 turnB();
+		 cyco++;
+		 table();
+		 wincond2();
+	       }
+	     else if (wincond2() == true)
+	       {
+		 owin++;
+		 cout << two << " has won this round!" << endl;
+		 cout << one << " " << xwin << " - " << two << " " << owin << endl;
+		 break;
+	       }
+	   }while (cycx+cyco < 9 && wincond() == false && wincond2() == false);
+       }
+     cout << "Do you wish to play again?(Y/N)";
+     cin >> plagain;
    }while(plagain != 'N'); 
-  return 0;  
+   return 0;  
 }
 
 char intro() //getting player names
@@ -230,58 +256,34 @@ bool wincond() //win conditions for player 1
 {
   if(markx == board[0][0] && markx == board[0][1] && markx == board[0][2])
     {
-      xwin++;
-      cout << one << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[1][0] == markx && board[1][1] == markx && board[1][2] == markx)
     {
-      xwin++;
-      cout << one << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[2][0] == markx && board[2][1] == markx && board[2][2] == markx)
     {
-      xwin++;
-      cout << one << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[0][0] == markx && board[1][0] == markx && board[2][0] == markx)
     {
-      xwin++;
-      cout << one << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[0][1] == markx && board[1][1] == markx && board[2][1] == markx)
     {
-      xwin++;
-      cout << one << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[0][2] == markx && board[1][2] == markx && board[2][2] == markx)
     {
-      xwin++;
-      cout << one << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[0][0] == markx && board[1][1] == markx && board[2][2] == markx)
     {
-      xwin++;
-      cout << one << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[2][0] == markx && board[1][1] == markx && board[0][2] == markx)
     {
-      xwin++;
-      cout << one << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
 
@@ -295,58 +297,34 @@ bool wincond2()
 {
    if(marko == board[0][0] && marko == board[0][1] && marko == board[0][2])
     {
-      owin++;
-      cout << two << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[1][0] == marko && board[1][1] == marko && board[1][2] == marko)
     {
-      owin++;
-      cout << two << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[2][0] == marko && board[2][1] == marko && board[2][2] == marko)
     {
-      owin++;
-      cout << two << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[0][0] == marko && board[1][0] == marko && board[2][0] == marko)
     {
-      owin++;
-      cout << two << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[0][1] == marko && board[1][1] == marko && board[2][1] == marko)
     {
-      owin++;
-      cout << two << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[0][2] == marko && board[1][2] == marko && board[2][2] == marko)
     {
-      owin++;
-      cout << two << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[0][0] == marko && board[1][1] == marko && board[2][2] == marko)
     {
-      owin++;
-      cout << two << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
   else if(board[2][0] == markx && board[1][1] == markx && board[0][2] == markx)
     {
-      owin++;
-      cout << one << " has won this round!" << endl;
-      cout << one << " " << xwin << " - " << two << " " << owin << endl;
       return true;
     }
 
@@ -358,27 +336,9 @@ bool wincond2()
 
 void boardclr()
 {
-  board[0][0] == ' '; //inefficient way to reset values
-  board[0][1] == ' ';
-  board[0][2] == ' ';
-  board[1][0] == ' ';
-  board[1][1] == ' ';
-  board[1][2] == ' ';
-  board[2][0] == ' ';
-  board[2][1] == ' ';
-  board[2][2] == ' ';
+  char board[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} };
   cout << " " << "1" << "2" << "3" << endl;
   cout << "A" << board[0][0] << board[0][1] << board[0][2] << endl;
   cout << "B" << board[1][0] << board[1][1] << board[1][2] << endl;
   cout << "C" << board[2][0] << board[2][1] << board[2][2] << endl;
 } 
-  
-
-/*int tie()
-{
-  if (board[3][3] == marko || board [3][3] == markx)
-    {
-      cout << "The game is tied! No one wins." << endl;
-*/      
-
-
