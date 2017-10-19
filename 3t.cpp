@@ -1,24 +1,23 @@
 //By Stone Yang
 /*A program created to have two players play Tic Tac Toe*/
 #include <iostream>
+#include <string.h>
 using namespace std;
 
 char one[12];
 char two[12];
-char board[3][3] = { ' ' };
+char board[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} };
 char markx = 'X';
 char marko = 'O';
 int xwin = 0;
 int owin = 0;
-int cycx = 0;
-int cyco = 0;
 char plagain;
+bool skip = false;
 
 
 //list of functions to call
 char intro();
 void table();
-void boardclr();
 int turnA();
 int turnB();
 bool wincond();
@@ -26,18 +25,17 @@ bool wincond2();
 
 int main()
 {
+  int cycx = 0;
+  int cyco = 0;
    cout << "A game of Tic Tac Toe" << endl;
    intro();
    cout << "You're up first, " << one << "." << endl;
    do{
-     boardclr();
-     if(cycx + cyco == 9 && wincond() == false && wincond2() == false)
-       {
-	 cout << "Tie game, no one wins" << endl;
-	 break;
-       }
-     else
-       {
+     memset(board, ' ', sizeof(board[3][3]) * 3 * 3); //clear board and reset values, credited James McNellis
+     table();
+     skip = false; //skip turn of player 2 if player 1 wins
+     cycx = 0;
+     cyco = 0;
 	 do
 	   {
 	     if(cycx < 5 && wincond() == false)
@@ -47,37 +45,45 @@ int main()
 		 turnA();
 		 cycx++;
 		 table();
-		 wincond();
+		 cout << cycx << endl;
 	       }
-	     else if(wincond() == true)
+	     wincond(); //check wincondition for player 1
+	     if(wincond() == true)
 	       {
 		 xwin++;
-		 cout << two << " has won this round!" << endl;
+		 cout << one << " has won this round!" << endl;
 		 cout << one << " " << xwin << " - " << two << " " << owin << endl;
+		 skip = true;
 		 break;
 	       }
 
-	     if(cyco < 4 && wincond2() == false)
+	     if(cyco < 4 && wincond2() == false && wincond() == false && skip == false) //credit to Alex Y. for showing me how to break here
 	       {
 		 cout << two << "'s turn." << endl;
 		 cout << two << ", enter a row: ";
 		 turnB();
 		 cyco++;
 		 table();
-		 wincond2();
+		 cout << cyco << endl;;
 	       }
-	     else if (wincond2() == true)
+	     wincond2(); //check wincondition for player 2
+	     if (wincond2() == true && wincond() == false && skip == false)
 	       {
 		 owin++;
 		 cout << two << " has won this round!" << endl;
 		 cout << one << " " << xwin << " - " << two << " " << owin << endl;
 		 break;
 	       }
-	   }while (cycx+cyco < 9 && wincond() == false && wincond2() == false);
-       }
-     cout << "Do you wish to play again?(Y/N)";
+	     if(cycx+cyco == 9) //result of a tie game
+	       {
+		 cout << "Tie game!" << endl;
+		 cout << one << " " << xwin << "-" << two << " " << owin << endl;
+		 break;
+	       }
+	   }while (cycx+cyco < 9 && wincond() == false && wincond2() == false || skip == true);
+     cout << "Do you wish to play again?(y/n)";
      cin >> plagain;
-   }while(plagain != 'N'); 
+   }while(plagain != 'n'); //prompt for replaying the game
    return 0;  
 }
 
@@ -101,6 +107,7 @@ void table() //the game board
   cout << "A" << board[0][0] << board[0][1] << board[0][2] << endl;
   cout << "B" << board[1][0] << board[1][1] << board[1][2] << endl;
   cout << "C" << board[2][0] << board[2][1] << board[2][2] << endl;
+  return;
 }
 
 int turnA() //turn of player 1
@@ -333,12 +340,3 @@ bool wincond2()
       return false;
     }
 }
-
-void boardclr()
-{
-  char board[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} };
-  cout << " " << "1" << "2" << "3" << endl;
-  cout << "A" << board[0][0] << board[0][1] << board[0][2] << endl;
-  cout << "B" << board[1][0] << board[1][1] << board[1][2] << endl;
-  cout << "C" << board[2][0] << board[2][1] << board[2][2] << endl;
-} 
